@@ -1,0 +1,47 @@
+body {
+  background-color: brown;
+}
+
+.jeu {
+width: 100%;
+
+display :inline-flex;
+  justify-content: space-around;
+}
+
+
+.garde  {
+  width: 100%;
+  background-color: brown;
+  color: brown;
+  border :brown;
+  padding: 00px 00px;
+  text-align: justify;
+  display :inline-flex;
+  justify-content: space-around;
+  font-size: 30px;
+ margin-right: auto;
+ margin-left: auto;
+  margin: 00px 00px;
+
+}
+#g1, #g2, #g3, #g4, #g5 {
+    background-color: brown;
+    padding: 00px 75px;
+        font-weight: bold;
+        border :blue;
+}
+
+#carte1 , #carte2 , #carte3 , #carte4 , #carte5  {
+  width: 200px;
+}
+
+#bt1 , #gain , #score {
+  padding: 10px;
+}
+@media screen and (max-width: 1024px)
+  {
+  
+#carte1 , #carte2 , #carte3 , #carte4 , #carte5  {
+  width: 150px;
+}}
