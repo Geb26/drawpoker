@@ -42,7 +42,7 @@ document.getElementById("bt1").disabled = true;
 document.getElementById("mise").addEventListener("change", function verif() {
   mise = parseInt(document.getElementById("mise").value);
   //if (bol1=== false) {score = score - mise}
-  if (mise > 0 && score- mise >= 0) {
+  if (mise > 0 && score - mise >= 0) {
     document.getElementById("bt1").disabled = false;
 
     //document.getElementById("score").innerHTML = score - mise;
@@ -53,17 +53,17 @@ document.getElementById("mise").addEventListener("change", function verif() {
 
 function verif2() {
   mise = parseInt(document.getElementById("mise").value);
- if (bol1=== false) {score = score - mise}
-  if (mise > 0 && score >= 0) {
-    
-      document.getElementById("bt1").disabled = false;
-    }
-    //document.getElementById("score").innerHTML = score - mise;
-    else {
-      document.getElementById("bt1").disabled = true;
-    }
+  if (bol1 === false) {
+    score = score - mise;
   }
-
+  if (mise > 0 && score >= 0) {
+    document.getElementById("bt1").disabled = false;
+  }
+  //document.getElementById("score").innerHTML = score - mise;
+  else {
+    document.getElementById("bt1").disabled = true;
+  }
+}
 
 function initialise() {
   tabl = [];
@@ -180,14 +180,13 @@ document.getElementById("bt1").addEventListener("click", function lancer() {
     }
     bol1 = false;
     document.getElementById("mise").disabled = false;
-   
+
     verifresult();
-   
-  
-  if (score <= 0) {
-    
-    document.getElementById("bt1").disabled = true;
-    }}
+
+    if (score <= 0) {
+      document.getElementById("bt1").disabled = true;
+    }
+  }
 });
 carte1.addEventListener("click", function () {
   if (bol1 === true) {
