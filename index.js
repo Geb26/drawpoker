@@ -4,6 +4,7 @@ const carte3 = document.querySelector("#carte3");
 const carte4 = document.querySelector("#carte4");
 const carte5 = document.querySelector("#carte5");
 let tabl = [];
+let csel = "";
 let c1 = "";
 let c2 = "";
 let c3 = "";
@@ -35,7 +36,6 @@ let quinte = 0;
 let quinter = 0;
 let couleur = 0;
 let score = document.getElementById("score").textContent;
-
 let gain = 0;
 document.getElementById("bt1").disabled = true;
 
@@ -56,7 +56,7 @@ function verif2() {
   if (bol1 === false) {
     score = score - mise;
   }
-  if (mise > 0 && score >= 0) {
+  if (mise >= 0 && score >= 0) {
     document.getElementById("bt1").disabled = false;
   }
   //document.getElementById("score").innerHTML = score - mise;
@@ -113,9 +113,6 @@ function initialise() {
   let c3v = "";
   let c4v = "";
   let c5v = "";
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("gain").innerHTML = "0";
-  document.getElementById("score").innerHTML = score;
 
   return tabl;
 }
@@ -143,7 +140,14 @@ document.getElementById("bt1").addEventListener("click", function lancer() {
   verif2();
 
   if (bol1 === false) {
+    gain = 0;
+    mise = 0;
+    document.getElementById("gamble").disabled = true;
+    bolgamble = false;
     initialise();
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("gain").innerHTML = "0";
+    document.getElementById("score").innerHTML = score;
     melange(tabl);
     c1 = tabl[0];
     c2 = tabl[1];
@@ -182,6 +186,7 @@ document.getElementById("bt1").addEventListener("click", function lancer() {
     document.getElementById("mise").disabled = false;
 
     verifresult();
+    score = score + gain;
 
     if (score <= 0) {
       document.getElementById("bt1").disabled = true;
@@ -208,6 +213,11 @@ carte2.addEventListener("click", function () {
       document.getElementById("g2").innerHTML = "GARDE";
       bolg2 = true;
     }
+  } else {
+    if (bolgamble) {
+      csel = c2;
+      checkgamble();
+    }
   }
 });
 carte3.addEventListener("click", function () {
@@ -218,6 +228,11 @@ carte3.addEventListener("click", function () {
     } else {
       document.getElementById("g3").innerHTML = "GARDE";
       bolg3 = true;
+    }
+  } else {
+    if (bolgamble) {
+      csel = c3;
+      checkgamble();
     }
   }
 });
@@ -230,6 +245,11 @@ carte4.addEventListener("click", function () {
       document.getElementById("g4").innerHTML = "GARDE";
       bolg4 = true;
     }
+  } else {
+    if (bolgamble) {
+      csel = c4;
+      checkgamble();
+    }
   }
 });
 carte5.addEventListener("click", function () {
@@ -240,6 +260,11 @@ carte5.addEventListener("click", function () {
     } else {
       document.getElementById("g5").innerHTML = "GARDE";
       bolg5 = true;
+    }
+  } else {
+    if (bolgamble) {
+      csel = c5;
+      checkgamble();
     }
   }
 });
@@ -653,11 +678,96 @@ function afficheresult() {
   gain = gain * mise;
   document.getElementById("gain").innerHTML = gain;
   document.getElementById("score").textContent = score + gain;
+  
   //document.getElementById("score").innerHTML = eval(score) + eval(gain);
 
   document.getElementById("result").innerHTML = resultat;
+  if (gain > 0) {
+    document.getElementById("gamble").disabled = false;
+      }
+      console.log(score);
+}
 
+document.getElementById("gamble").addEventListener("click", function gamble() {
+  bolgamble = true;
+  score = score - gain;
+  initialise();
+  melange(tabl);
+  c1 = tabl[0];
+  c2 = tabl[1];
+  c3 = tabl[2];
+  c4 = tabl[3];
+  c5 = tabl[4];
+  carte1.src = "./img/PNG/" + tabl[0] + ".png";
+  carte2.src = "./img/PNG/" + "blue_back.png";
+  carte3.src = "./img/PNG/" + "blue_back.png";
+  carte4.src = "./img/PNG/" + "blue_back.png";
+  carte5.src = "./img/PNG/" + "blue_back.png";
+});
+
+function checkgamble() {
+  if (c1.length === 2) {
+    c1v = c1.substring(0, 1);
+  } else {
+    c1v = c1.substring(0, 2);
+  }
+  if (csel.length === 2) {
+    cselv = csel.substring(0, 1);
+  } else {
+    cselv = csel.substring(0, 2);
+  }
+
+  if (c1v === "A") {
+    c1v = "14";
+  }
+  if (c1v === "K") {
+    c1v = "13";
+  }
+  if (c1v === "Q") {
+    c1v = "12";
+  }
+  if (c1v === "J") {
+    c1v = "11";
+  }
+  if (cselv === "A") {
+    cselv = "14";
+  }
+  if (cselv === "K") {
+    cselv = "13";
+  }
+  if (cselv === "Q") {
+    cselv = "12";
+  }
+  if (cselv === "J") {
+    cselv = "11";
+  }
+  c1v = parseInt(c1v);
+  cselv = parseInt(cselv);
+  if (c1v > cselv) {
+    gain = 0;
+    document.getElementById("result").innerHTML = "perdu !!!!";
+    document.getElementById("gamble").disabled = true;
+    if (score > 0) {
+      document.getElementById("bt1").disabled = false;
+    } else {document.getElementById("bt1").disabled = true;}
+  }
+  if (c1v < cselv) {
+    gain = gain * 2;
+    document.getElementById("result").innerHTML = "gagne !!!!";
+    document.getElementById("bt1").disabled = false;
+  }
+
+  if (c1v === cselv) {
+    document.getElementById("result").innerHTML = "essaye encore";
+    document.getElementById("bt1").disabled = false;
+  }
+  carte2.src = "./img/PNG/" + c2 + ".png";
+  carte3.src = "./img/PNG/" + c3 + ".png";
+  carte4.src = "./img/PNG/" + c4 + ".png";
+  carte5.src = "./img/PNG/" + c5 + ".png";
+  
+
+  document.getElementById("gain").innerHTML = gain;
+  document.getElementById("score").textContent = score + gain;
   score = score + gain;
-  gain = 0;
-  mise = 0;
 }
