@@ -41,29 +41,29 @@ document.getElementById("bt1").disabled = true;
 
 document.getElementById("mise").addEventListener("change", function verif() {
   mise = parseInt(document.getElementById("mise").value);
-  if (mise > 0 && score > 0) {
+  //if (bol1=== false) {score = score - mise}
+  if (mise > 0 && score- mise >= 0) {
     document.getElementById("bt1").disabled = false;
-    bol2 = true;
+
     //document.getElementById("score").innerHTML = score - mise;
   } else {
     document.getElementById("bt1").disabled = true;
-    bol2 = false;
   }
 });
 
 function verif2() {
   mise = parseInt(document.getElementById("mise").value);
+ if (bol1=== false) {score = score - mise}
   if (mise > 0 && score >= 0) {
-    if ((bol1 === true)) {
+    
       document.getElementById("bt1").disabled = false;
-      bol2 = true;
     }
     //document.getElementById("score").innerHTML = score - mise;
-  } else {
-    document.getElementById("bt1").disabled = true;
-    bol2 = false;
+    else {
+      document.getElementById("bt1").disabled = true;
+    }
   }
-}
+
 
 function initialise() {
   tabl = [];
@@ -92,7 +92,7 @@ function initialise() {
   bolg3 = false;
   bolg4 = false;
   bolg5 = false;
-  bol1 = false;
+  //bol1 = false;
   document.getElementById("g1").innerHTML = "";
   document.getElementById("g2").innerHTML = "";
   document.getElementById("g3").innerHTML = "";
@@ -115,7 +115,6 @@ function initialise() {
   let c5v = "";
   document.getElementById("result").innerHTML = "";
   document.getElementById("gain").innerHTML = "0";
-  score = score - mise;
   document.getElementById("score").innerHTML = score;
 
   return tabl;
@@ -142,48 +141,53 @@ function melange(array) {
 
 document.getElementById("bt1").addEventListener("click", function lancer() {
   verif2();
-  if (bol2 === true) {
-    if (bol1 === false) {
-      initialise();
-      melange(tabl);
-      c1 = tabl[0];
-      c2 = tabl[1];
-      c3 = tabl[2];
-      c4 = tabl[3];
-      c5 = tabl[4];
-      carte1.src = "./img/PNG/" + tabl[0] + ".png";
-      carte2.src = "./img/PNG/" + tabl[1] + ".png";
-      carte3.src = "./img/PNG/" + tabl[2] + ".png";
-      carte4.src = "./img/PNG/" + tabl[3] + ".png";
-      carte5.src = "./img/PNG/" + tabl[4] + ".png";
-      bol1 = true;
-      document.getElementById("mise").disabled = true;
-    } else {
-      if (bolg1 === false) {
-        carte1.src = "./img/PNG/" + tabl[5] + ".png";
-        c1 = tabl[5];
-      }
-      if (bolg2 === false) {
-        carte2.src = "./img/PNG/" + tabl[6] + ".png";
-        c2 = tabl[6];
-      }
-      if (bolg3 === false) {
-        carte3.src = "./img/PNG/" + tabl[7] + ".png";
-        c3 = tabl[7];
-      }
-      if (bolg4 === false) {
-        carte4.src = "./img/PNG/" + tabl[8] + ".png";
-        c4 = tabl[8];
-      }
-      if (bolg5 === false) {
-        carte5.src = "./img/PNG/" + tabl[9] + ".png";
-        c5 = tabl[9];
-      }
-      bol1 = false;
-      document.getElementById("mise").disabled = false;
-      verifresult();
+
+  if (bol1 === false) {
+    initialise();
+    melange(tabl);
+    c1 = tabl[0];
+    c2 = tabl[1];
+    c3 = tabl[2];
+    c4 = tabl[3];
+    c5 = tabl[4];
+    carte1.src = "./img/PNG/" + tabl[0] + ".png";
+    carte2.src = "./img/PNG/" + tabl[1] + ".png";
+    carte3.src = "./img/PNG/" + tabl[2] + ".png";
+    carte4.src = "./img/PNG/" + tabl[3] + ".png";
+    carte5.src = "./img/PNG/" + tabl[4] + ".png";
+    bol1 = true;
+    document.getElementById("mise").disabled = true;
+  } else {
+    if (bolg1 === false) {
+      carte1.src = "./img/PNG/" + tabl[5] + ".png";
+      c1 = tabl[5];
     }
-  }
+    if (bolg2 === false) {
+      carte2.src = "./img/PNG/" + tabl[6] + ".png";
+      c2 = tabl[6];
+    }
+    if (bolg3 === false) {
+      carte3.src = "./img/PNG/" + tabl[7] + ".png";
+      c3 = tabl[7];
+    }
+    if (bolg4 === false) {
+      carte4.src = "./img/PNG/" + tabl[8] + ".png";
+      c4 = tabl[8];
+    }
+    if (bolg5 === false) {
+      carte5.src = "./img/PNG/" + tabl[9] + ".png";
+      c5 = tabl[9];
+    }
+    bol1 = false;
+    document.getElementById("mise").disabled = false;
+   
+    verifresult();
+   
+  
+  if (score <= 0) {
+    
+    document.getElementById("bt1").disabled = true;
+    }}
 });
 carte1.addEventListener("click", function () {
   if (bol1 === true) {
